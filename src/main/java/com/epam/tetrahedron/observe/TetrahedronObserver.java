@@ -20,9 +20,7 @@ public class TetrahedronObserver implements Observer<TetrahedronObservable> {
         }
         return INSTANCE;
     }
-    public void setCalculator(Calculator calculator){
-        this.calculator=calculator;
-    }
+
     @Override
     public void update(TetrahedronObservable tetrahedronObservable) {
             TetrahedronParameters parameters = new TetrahedronParameters(calculator.getSquare(tetrahedronObservable),calculator.getVolume(tetrahedronObservable));
