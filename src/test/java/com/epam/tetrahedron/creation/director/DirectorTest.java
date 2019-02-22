@@ -40,7 +40,7 @@ public class DirectorTest {
         when(dataValidator.isValid(anyString())).thenReturn(true).thenReturn(true);
         when(dataParser.getDoubleData(anyString())).thenReturn(new Double[] {12.0,0.0, 34.0,12.0}).thenReturn(new Double[]{34.0,0.0,54.0,65.0});
         when(figureConfirm.isTetrahedron(anyDouble())).thenReturn(true).thenReturn(true);
-        List<Tetrahedron> expected =  new ArrayList<>(Arrays.asList(new Tetrahedron(FIRST_POINT,LENGTH_IS_TWELVE),new Tetrahedron(SECOND_POINT,LENGTH_IS_SIXTY_FIVE)));
+        List<Tetrahedron> expected =  Arrays.asList(new Tetrahedron(FIRST_POINT,LENGTH_IS_TWELVE),new Tetrahedron(SECOND_POINT,LENGTH_IS_SIXTY_FIVE));
         expected.get(0).setId(3);
         expected.get(1).setId(4);
         Assert.assertEquals(expected,director.createFrom(FILE_NAME));

@@ -10,10 +10,6 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
     private final Logger log = Logger.getLogger(TetrahedronRepository.class);
     @Override
     public void add(Tetrahedron obj) {
-        if(obj==null){
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
-        }
         for(Tetrahedron temp: repository) {
             if (temp.getId() == obj.getId()) {
                 repository.set(repository.indexOf(temp), obj);
@@ -26,10 +22,6 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
 
     @Override
     public void add(Collection<Tetrahedron> t) {
-        if(t==null) {
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
-        }
         for(Tetrahedron obj: t){
             boolean flag=false;
             for(Tetrahedron temp: repository){
@@ -47,10 +39,6 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
 
     @Override
     public void update(Tetrahedron obj) {
-        if(obj==null){
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
-        }
         for(Tetrahedron temp: repository) {
             if (temp.getId() == obj.getId()) {
                 repository.set(repository.indexOf(temp),obj);
@@ -104,5 +92,8 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
     }
     public int size(){
         return  repository.size();
+    }
+    public List<Tetrahedron> getAll(){
+        return repository;
     }
 }
