@@ -20,7 +20,6 @@ public class Point {
     }
 
     public double getZ() {
-
         return z;
     }
     @Override

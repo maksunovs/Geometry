@@ -1,23 +1,20 @@
 package com.epam.tetrahedron.repository.specificationImplementing;
 
+import com.epam.tetrahedron.action.Calculator;
 import com.epam.tetrahedron.entity.Tetrahedron;
 import com.epam.tetrahedron.repository.Specification;
-import com.epam.tetrahedron.repository.comparatorImplementing.ComparasionByCoordinateX;
-import org.apache.log4j.Logger;
 
 public class VolumeIsMore implements Specification<Tetrahedron> {
     private final double leftBorder;
-    private final Logger log = Logger.getLogger(VolumeIsMore.class);
-    public VolumeIsMore(double leftBorder) {
+    private final Calculator calculator;
+    public VolumeIsMore(double leftBorder, Calculator calculator) {
+        this.calculator=calculator;
         this.leftBorder = leftBorder;
     }
 
     @Override
     public boolean specified(Tetrahedron obj) {
-        if(obj == null ){
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
-        }
-        return false;
+        double volume=calculator.getVolume(obj);
+        return volume>leftBorder;
     }
 }

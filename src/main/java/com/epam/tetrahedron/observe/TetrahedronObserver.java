@@ -9,7 +9,7 @@ import java.util.Map;
 public class TetrahedronObserver implements Observer<TetrahedronObservable> {
     private static TetrahedronObserver INSTANCE = null;
     private Map<Integer, TetrahedronParameters> tetrahedronParametersMap = new HashMap<>();
-    private  Calculator calculator = new Calculator();
+    private final Calculator calculator = new Calculator();
 
     private TetrahedronObserver() {
     }

@@ -11,8 +11,8 @@ public interface Repository <T extends Tetrahedron>{
     void add(T t);
     void add(Collection<T> t);
     void update(T t);
-    void remove(T t);
+    void remove(int id);
     void remove(Specification<T> specification);
-    List<T> query(Specification specification);
-    List<T> sort(Comparator comparator);
+    List<T> query(Specification<T> specification);
+    void sort(Comparator<T> comparator);
 }

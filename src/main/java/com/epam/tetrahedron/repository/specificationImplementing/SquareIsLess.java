@@ -1,23 +1,20 @@
 package com.epam.tetrahedron.repository.specificationImplementing;
 
+import com.epam.tetrahedron.action.Calculator;
 import com.epam.tetrahedron.entity.Tetrahedron;
 import com.epam.tetrahedron.repository.Specification;
-import com.epam.tetrahedron.repository.comparatorImplementing.ComparasionByCoordinateX;
-import org.apache.log4j.Logger;
 
 public class SquareIsLess implements Specification<Tetrahedron> {
     private final double rightBorder;
-    private final Logger log = Logger.getLogger(SquareIsLess.class);
-    public SquareIsLess(double rightBorder) {
+    private final Calculator calculator;
+    public SquareIsLess(double rightBorder, Calculator calculator) {
         this.rightBorder = rightBorder;
+        this.calculator=calculator;
     }
 
     @Override
     public boolean specified(Tetrahedron obj) {
-        if(obj == null ){
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
-        }
-        return false;
+        double square = calculator.getSquare(obj);
+        return square<rightBorder;
     }
 }

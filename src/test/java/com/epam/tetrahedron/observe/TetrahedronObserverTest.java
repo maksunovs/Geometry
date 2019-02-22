@@ -8,15 +8,15 @@ import org.junit.Test;
 
 
 public class TetrahedronObserverTest {
-    private final Point point = new Point(12.0,34.0,56.0);
-    private final double edgeLength = 10;
-    private final TetrahedronObservable tetrahedronObservable = new TetrahedronObservable(point,edgeLength);
-    private final TetrahedronObserver observer = TetrahedronObserver.getInstance();
+    private static  final Point POINT = new Point(12.0,34.0,56.0);
+    private static final double LENGTH_IS_TEN = 10;
+    private final TetrahedronObservable tetrahedronObservable = new TetrahedronObservable(POINT,LENGTH_IS_TEN);
+    private static final TetrahedronObserver OBSERVER = TetrahedronObserver.getInstance();
     @Test
     public void shouldUpdateParametersWhenTheyChange() {
         tetrahedronObservable.setEdgeLength(34.0);
-        observer.update(tetrahedronObservable);
-        TetrahedronParameters parameters = observer.getParameters(tetrahedronObservable.getId());
+        OBSERVER.update(tetrahedronObservable);
+        TetrahedronParameters parameters = OBSERVER.getParameters(tetrahedronObservable.getId());
         double expectedVolume = 4632.02;
         double expectedSquare = 3003.376;
         Assert.assertNotNull(parameters);
@@ -26,7 +26,7 @@ public class TetrahedronObserverTest {
 
     @Test
     public void shouldReturnCorrectParametersFromRegistryClass() {
-        TetrahedronParameters parameters = observer.getParameters(tetrahedronObservable.getId());
+        TetrahedronParameters parameters = OBSERVER.getParameters(tetrahedronObservable.getId());
         double expectedVolume = 117.8511;
         double expectedSquare = 259.807;
         Assert.assertNotNull(parameters);

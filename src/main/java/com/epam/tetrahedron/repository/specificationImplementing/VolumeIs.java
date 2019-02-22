@@ -4,17 +4,17 @@ import com.epam.tetrahedron.action.Calculator;
 import com.epam.tetrahedron.entity.Tetrahedron;
 import com.epam.tetrahedron.repository.Specification;
 
-public class VolumeIsLess implements Specification<Tetrahedron> {
-    private final double rightBorder;
+public class VolumeIs implements Specification<Tetrahedron> {
+    private final double expectedVolume;
     private final Calculator calculator;
-    public VolumeIsLess(double rightBorder, Calculator calculator) {
+    public VolumeIs(double expectedVolume, Calculator calculator) {
         this.calculator=calculator;
-        this.rightBorder = rightBorder;
+        this.expectedVolume = expectedVolume;
     }
 
     @Override
     public boolean specified(Tetrahedron obj) {
         double volume=calculator.getVolume(obj);
-        return volume<rightBorder;
+        return volume==expectedVolume;
     }
 }

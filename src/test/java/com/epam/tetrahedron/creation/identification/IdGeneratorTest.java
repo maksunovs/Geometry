@@ -3,7 +3,6 @@ package com.epam.tetrahedron.creation.identification;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 public class IdGeneratorTest {
     private int id;

@@ -9,22 +9,21 @@ import org.junit.Test;
 public class CalculatorTest {
    private final Calculator calculator = new Calculator();
    private final  Point point = new Point(0.0,0.0,0.0);
+   private  static  final double LENGTH_IS_TEN = 10.0;
+   //private  static  final double
     @Test
     public void shouldCalculateSquare (){
-        //given
-        double edgeLength = 5.0;
-        Tetrahedron tetrahedron = new Tetrahedron(point,edgeLength);
+        Tetrahedron tetrahedron = new Tetrahedron(point,LENGTH_IS_TEN);
         //when
         double result = calculator.getSquare(tetrahedron);
         //then
-        double expected = 64.9519;
+        double expected = 259.807;
         Assert.assertEquals(expected,result,0.001);
     }
 
     @Test
     public void shouldCalculateVolume(){
-        double edgeLength = 10.0;
-        Tetrahedron tetrahedron = new Tetrahedron(point,edgeLength);
+        Tetrahedron tetrahedron = new Tetrahedron(point,LENGTH_IS_TEN);
         double result = calculator.getVolume(tetrahedron);
         double expected = 117.8511;
         Assert.assertEquals(expected,result,0.001);
@@ -32,11 +31,10 @@ public class CalculatorTest {
 
     @Test
     public void shouldCalculateVolumeRatio() throws NotAcrossFigureException {
-        double edgeLength = 1.22479;
         Point point = new Point(0.0,0.0, -0.21);
-        Tetrahedron tetrahedron = new Tetrahedron(point, edgeLength);
+        Tetrahedron tetrahedron = new Tetrahedron(point, LENGTH_IS_TEN);
         double result = calculator.getVolumeRatio(tetrahedron);
-        double expected = 1.0;
+        double expected = 0.0813;
         Assert.assertEquals(expected,result,0.03);
     }
 //

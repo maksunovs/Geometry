@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 public class TetrahedronRepository implements Repository<Tetrahedron> {
-    private final Map<Integer,Tetrahedron> repository = new HashMap<>();
+    private final List<Tetrahedron> repository = new ArrayList<>();
     private final Logger log = Logger.getLogger(TetrahedronRepository.class);
     @Override
     public void add(Tetrahedron obj) {
@@ -14,17 +14,33 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
             log.error("Null pointer");
             throw new NullPointerException("Null pointer");
         }
-        repository.put(obj.getId(),obj);
+        for(Tetrahedron temp: repository) {
+            if (temp.getId() == obj.getId()) {
+                repository.set(repository.indexOf(temp), obj);
+                return;
+            }
+        }
+        repository.add(obj);
+
     }
 
     @Override
     public void add(Collection<Tetrahedron> t) {
         if(t==null) {
-            log.error("Null pointer[add(Collection<Tetrahedron> t)]");
+            log.error("Null pointer");
             throw new NullPointerException("Null pointer");
         }
         for(Tetrahedron obj: t){
-                repository.put(obj.getId(),obj);
+            boolean flag=false;
+            for(Tetrahedron temp: repository){
+                if (temp.getId() == obj.getId()) {
+                    repository.set(repository.indexOf(temp), obj);
+                    flag=true;
+                }
+            }
+            if(!flag){
+                repository.add(obj);
+            }
         }
     }
 
@@ -35,58 +51,58 @@ public class TetrahedronRepository implements Repository<Tetrahedron> {
             log.error("Null pointer");
             throw new NullPointerException("Null pointer");
         }
-        if(repository.containsKey(obj.getId())) {
-            repository.put(obj.getId(),obj);
-        }else{
-            log.error("Object is not in list");
+        for(Tetrahedron temp: repository) {
+            if (temp.getId() == obj.getId()) {
+                repository.set(repository.indexOf(temp),obj);
+                return;
+            }
         }
+        log.info("Object is not in repository");
     }
     @Override
-    public void remove(Tetrahedron obj) {
-        if(obj==null){
-            log.error("Null pointer");
-            throw new NullPointerException("Null pointer");
+    public void remove(int tetrahedronID) {
+        for(Tetrahedron temp: repository){
+            if(temp.getId()==tetrahedronID){
+                repository.remove(temp);
+                return;
+            }
         }
-        if(repository.containsKey(obj.getId())) {
-            repository.remove(obj.getId());
-        }else{
-            log.error("Object is not in list");
-        }
-
+        log.info("Object does not exist in repository");
     }
     @Override
-    public void remove(Specification specification) {
-        for(Tetrahedron obj:repository.values()){
-            if(specification.specified(obj)){
-                repository.remove(obj.getId());
+    public void remove(Specification<Tetrahedron> specification) {
+        for(Tetrahedron temp: repository){
+            if(specification.specified(temp)){
+                repository.remove(temp);
             }
         }
     }
 
     @Override
-    public List<Tetrahedron> query(Specification specification) {
+    public List<Tetrahedron> query(Specification<Tetrahedron> specification) {
         List<Tetrahedron> list = new ArrayList<>();
-        for(Tetrahedron obj: repository.values()){
-                if(specification.specified(obj)){
-                    list.add(obj);
+        for(Tetrahedron temp: repository){
+                if(specification.specified(temp)){
+                    list.add(temp);
                 }
         }
         return list;
     }
 
     @Override
-    public List<Tetrahedron> sort(Comparator comparator) {
+    public void sort(Comparator<Tetrahedron> comparator) {
         Tetrahedron temp;
-        List<Tetrahedron> list = new ArrayList<>(repository.values());
-        for(int i=0; i<list.size();i++){
-            for(int j=i+1; j<list.size(); j++){
-                if(comparator.compare(list.get(i),list.get(j))>0){
-                    temp=list.get(i);
-                    list.set(i,list.get(j));
-                    list.set(j,temp);
+        for(int i=0; i<repository.size();i++){
+            for(int j=i+1; j<repository.size(); j++){
+                if(comparator.compare(repository.get(i),repository.get(j))>0){
+                    temp=repository.get(i);
+                    repository.set(i,repository.get(j));
+                    repository.set(j,temp);
                 }
             }
         }
-        return list;
+    }
+    public int size(){
+        return  repository.size();
     }
 }

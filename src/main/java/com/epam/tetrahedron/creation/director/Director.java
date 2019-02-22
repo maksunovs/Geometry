@@ -19,10 +19,10 @@ public class Director {
     private final DataValidator dataValidator;
     private final DataParser dataParser;
     private final FigureConfirm figureConfirm;
-    private final int xLocation=0;
-    private final int yLocation=1;
-    private final int zLocation = 2;
-    private final int edgeLength = 3;
+    private static final int X_LOCATION=0;
+    private static final int Y_LOCATION=1;
+    private static final int Z_LOCATION = 2;
+    private static final int EDGE_LENGTH = 3;
     private final Logger log = Logger.getLogger(Director.class);
 
     public Director(DataReader dataReader, DataValidator dataValidator, DataParser dataParser, FigureConfirm figureConfirm){
@@ -49,14 +49,14 @@ public class Director {
                 }
             }
         }catch (NullPointerException err){
-            log.error(err.getMessage());
+            log.error(err);
         }
         for(Double[] data: doubleData){
-            if(!figureConfirm.isTetrahedron(data[edgeLength])) {
+            if(!figureConfirm.isTetrahedron(data[EDGE_LENGTH])) {
                 continue;
             }
-           point = new Point(data[xLocation],data[yLocation],data[zLocation]);
-           list.add(new Tetrahedron(point,data[edgeLength]));
+           point = new Point(data[X_LOCATION],data[Y_LOCATION],data[Z_LOCATION]);
+           list.add(new Tetrahedron(point,data[EDGE_LENGTH]));
 
         }
         return  list;

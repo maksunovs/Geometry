@@ -3,12 +3,13 @@ package com.epam.tetrahedron.observe;
 import com.epam.tetrahedron.entity.Point;
 import com.epam.tetrahedron.entity.Tetrahedron;
 
+
 public class TetrahedronObservable extends Tetrahedron implements Observable<TetrahedronObservable>{
-    TetrahedronObserver observer = TetrahedronObserver.getInstance();
+   private static final TetrahedronObserver OBSERVER = TetrahedronObserver.getInstance();
     public TetrahedronObservable(Point point, double edgeLength)
     {
         super(point, edgeLength);
-        observer.update(this);
+        OBSERVER.update(this);
     }
 
     @Override
@@ -25,6 +26,6 @@ public class TetrahedronObservable extends Tetrahedron implements Observable<Tet
 
     @Override
     public void notifyObserver() {
-    observer.update(this);
+    OBSERVER.update(this);
     }
 }
